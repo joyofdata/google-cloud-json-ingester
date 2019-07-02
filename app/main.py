@@ -10,5 +10,14 @@ def dummy():
       return 'Value is missing.', 400
     return val + "_x", 200
 
+@app.route('/upload', methods=['POST'])
+def upload():
+    if "file_upload" not in request.files:
+        return 'File missing.', 400
+    else:
+        f = request.files['file_upload']
+        return f.read(), 200
+
+
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
