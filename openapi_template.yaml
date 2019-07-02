@@ -28,6 +28,7 @@ paths:
   "/upload":
     post:
       summary: "ETL JSON file."
+      operationId: "upload"
       consumes:
         - multipart/form-data
       parameters:
