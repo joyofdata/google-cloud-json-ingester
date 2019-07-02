@@ -34,3 +34,10 @@ paths:
         - in: formData
           name: file_upload
           type: file
+      responses:
+        200:
+          description: "File uploaded."
+          schema:
+            type: string
+        400:
+          description: "Error during file upload."
