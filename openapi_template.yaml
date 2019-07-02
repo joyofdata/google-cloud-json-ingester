@@ -4,7 +4,7 @@ info:
   description: "Receive JSON files, transform and load them."
   version: "1.0.0"
 
-host: "interview-project-8512.appspot.com"
+host: "{{PROJECT_ID}}.appspot.com"
 schemes:
   - "https"
 paths:
