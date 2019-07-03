@@ -1,27 +1,23 @@
 #!/usr/bin/env bash
 
-echo ""
-echo ">>>>> replace project ID in YAML files ..."
-echo ""
+announcement () {
+    echo ""
+    echo ">>>>> $1 ..."
+    echo ""
+}
+
+announcement "replace project ID in YAML files "
 sed "s/{{PROJECT_ID}}/$1/g" ./openapi_template.yaml > ./openapi.yaml
 sed "s/{{PROJECT_ID}}/$1/g" ./app/app_template.yaml > ./app/app.yaml
 
-echo ""
-echo ">>>>> set region to Frankfurt if (still) possible ..."
-echo ""
+announcement "set region to Frankfurt if (still) possible "
 gcloud app create --region="europe-west3"
 
-echo ""
-echo ">>>>> create bucket for raw json data ..."
-echo ""
+announcement "create bucket for raw json data "
 gsutil mb gs://raw-json-data-l3z0dbnsd39k/
 
-echo ""
-echo ">>>>> deploy API ..."
-echo ""
+announcement "deploy API "
 gcloud endpoints services deploy "./openapi.yaml"
 
-echo ""
-echo ">>>>> deploy app ..."
-echo ""
+announcement "deploy app"
 gcloud -q app deploy "./app/app.yaml"
