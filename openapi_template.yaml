@@ -25,3 +25,20 @@ paths:
             type: string
         400:
           description: "The IATA code is invalid or missing."
+  "/upload":
+    post:
+      summary: "ETL JSON file."
+      operationId: "upload"
+      consumes:
+        - multipart/form-data
+      parameters:
+        - in: formData
+          name: file
+          type: string
+      responses:
+        200:
+          description: "File uploaded."
+          schema:
+            type: string
+        400:
+          description: "Error during file upload."
