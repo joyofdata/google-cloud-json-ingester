@@ -12,11 +12,12 @@ def dummy():
 
 @app.route('/upload', methods=['POST'])
 def upload():
-    if "file_upload" not in request.files:
-        return 'File missing.', 400
+    f = request.files['file']
+    if f is None:
+      return 'File is missing. To be specified as string for form text input field named "file".', 400
     else:
-        f = request.files['file_upload']
-        return f.read(), 200
+        data = f.read()
+    return data, 200
 
 
 if __name__ == '__main__':
