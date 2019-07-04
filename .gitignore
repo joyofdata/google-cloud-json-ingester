@@ -1,3 +1,7 @@
+openapi.yaml
+app/app.yaml
+
+# PyCharm
 .idea
 .idea/*
 
