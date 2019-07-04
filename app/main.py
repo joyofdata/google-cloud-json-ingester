@@ -23,7 +23,9 @@ def upload():
         utils.store_object_in_bucket(
             bucket_name=BUCKET_NAME_FOR_RAW_DATA,
             object_name=f.filename,
-            object_data=f.read())
+            object_data=f.read(),
+            prepend_random_string_to_object_name=True
+        )
     return "OK", 200
 
 
