@@ -3,7 +3,7 @@ from flask import request
 
 import utils
 
-BUCKET_NAME_FOR_RAW_DATA = 'raw-json-data-l3z0dbnsd39k'
+import os
 
 app = Flask(__name__)
 
@@ -20,8 +20,9 @@ def upload():
     if f is None:
       return 'File is missing. To be specified as string for form text input field named "file".', 400
     else:
+        bucket_name = os.environ.get("BUCKET_NAME_FOR_RAW_DATA")
         utils.store_object_in_bucket(
-            bucket_name=BUCKET_NAME_FOR_RAW_DATA,
+            bucket_name=bucket_name,
             object_name=f.filename,
             object_data=f.read(),
             prepend_random_string_to_object_name=True
