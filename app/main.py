@@ -1,7 +1,9 @@
 from flask import Flask
 from flask import request
 
-from google.cloud import storage
+import utils
+
+BUCKET_NAME_FOR_RAW_DATA = 'raw-json-data-l3z0dbnsd39k'
 
 app = Flask(__name__)
 
@@ -18,16 +20,11 @@ def upload():
     if f is None:
       return 'File is missing. To be specified as string for form text input field named "file".', 400
     else:
-        data = f.read()
-        client = storage.Client()
-        bucket = client.get_bucket('raw-json-data-l3z0dbnsd39k')
-        blob = bucket.blob("test-file")
-        blob.upload_from_string(data)
-        try:
-            fn = f.filename
-        except:
-            fn = "no file name"
-    return fn, 200
+        utils.store_object_in_bucket(
+            bucket_name=BUCKET_NAME_FOR_RAW_DATA,
+            object_name=f.filename,
+            object_data=f.read())
+    return "OK", 200
 
 
 if __name__ == '__main__':
