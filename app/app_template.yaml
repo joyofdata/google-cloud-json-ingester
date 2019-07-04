@@ -8,3 +8,6 @@ runtime_config:
 endpoints_api_service:
   name: {{PROJECT_ID}}.appspot.com
   rollout_strategy: managed
+
+env_variables:
+  BUCKET_NAME_FOR_RAW_DATA: '{{BUCKET_NAME_FOR_RAW_DATA}}'
