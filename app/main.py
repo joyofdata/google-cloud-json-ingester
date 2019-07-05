@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request
 
 import utils
+import json
 
 import os
 
@@ -20,14 +21,23 @@ def upload():
     if f is None:
       return 'File is missing. To be specified as string for form text input field named "file".', 400
     else:
+        raw_data = f.read()
+
         bucket_name = os.environ.get("BUCKET_NAME_FOR_RAW_DATA")
         utils.store_object_in_bucket(
             bucket_name=bucket_name,
             object_name=f.filename,
-            object_data=f.read(),
+            object_data=raw_data,
             prepend_random_string_to_object_name=True
         )
-    return "OK", 200
+
+        try:
+            data = utils.transform_data(raw_data)
+            data_json = json.dumps(data)
+        except:
+            data_json = "{}"
+
+    return data_json, 200
 
 
 if __name__ == '__main__':
