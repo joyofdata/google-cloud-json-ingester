@@ -24,9 +24,9 @@ gcloud app create --region="europe-west3"
 announcement "create bucket for raw json data if it doesn't exist yet"
 gsutil mb gs://$2/
 
-#announcement "create table with column family"
-#cbt createtable data
-#cbt createfamily data statistics
+announcement "create table with column family"
+cbt createtable data -project $1 -instance $3
+cbt createfamily data statistics -project $1 -instance $3
 
 announcement "deploy API"
 gcloud endpoints services deploy "./openapi.yaml"
