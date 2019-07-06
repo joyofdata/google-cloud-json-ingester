@@ -31,11 +31,16 @@ def upload():
             prepend_random_string_to_object_name=True
         )
 
-        try:
-            data = utils.transform_data(raw_data)
-            data_json = json.dumps(data)
-        except:
-            data_json = "{}"
+        data_dict = utils.transform_data(raw_data)
+        data_json = json.dumps(data_dict)
+
+        bt_instance_id = os.environ.get("BIGTABLE_INSTANCE_ID")
+        utils.store_data_in_bigtable(
+            data_dict=data_dict,
+            bt_instance_id=bt_instance_id,
+            bt_table_name="data",
+            bt_column_family_name_for_statistics="statistics"
+        )
 
     return data_json, 200
 
