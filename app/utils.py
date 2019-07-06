@@ -16,7 +16,7 @@ def store_data_in_bigtable(
         bt_table_name,
         bt_column_family_name_for_statistics
 ):
-    client = bigtable.Client(project="carbide-booth-245511", admin=True)
+    client = bigtable.Client(admin=True)
     instance = client.instance(bt_instance_id)
     table = instance.table(bt_table_name)
 
