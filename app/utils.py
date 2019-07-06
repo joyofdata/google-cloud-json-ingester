@@ -56,6 +56,7 @@ def store_object_in_bucket(
     bucket = client.get_bucket(bucket_name)
     blob = bucket.blob(object_name)
     blob.upload_from_string(object_data)
+
     return
 
 
