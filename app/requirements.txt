@@ -1,4 +1,5 @@
 flask
 gunicorn
 google-cloud-storage
+google-cloud-bigtable
 numpy
