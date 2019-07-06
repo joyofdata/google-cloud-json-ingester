@@ -4,8 +4,37 @@ import json
 import numpy as np
 import pytz
 import datetime
+import struct
 
 from google.cloud import storage
+from google.cloud import bigtable
+
+
+def store_data_in_bigtable(
+        data_dict,
+        bt_instance_id,
+        bt_table_name,
+        bt_column_family_name_for_statistics
+):
+    client = bigtable.Client(project="carbide-booth-245511", admin=True)
+    instance = client.instance(bt_instance_id)
+    table = instance.table(bt_table_name)
+
+    row_key = data_dict["ts"]
+    row = table.row(row_key)
+    row.set_cell(
+        bt_column_family_name_for_statistics,
+        "mean",
+        struct.pack("d",data_dict["mn"]),
+        timestamp=datetime.datetime.utcnow())
+    row.set_cell(
+        bt_column_family_name_for_statistics,
+        "std",
+        struct.pack("d",data_dict["std"]),
+        timestamp=datetime.datetime.utcnow())
+    row.commit()
+
+    return
 
 
 def store_object_in_bucket(
