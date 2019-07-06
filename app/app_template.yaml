@@ -11,3 +11,4 @@ endpoints_api_service:
 
 env_variables:
   BUCKET_NAME_FOR_RAW_DATA: '{{BUCKET_NAME_FOR_RAW_DATA}}'
+  BIGTABLE_INSTANCE_ID: '{{BIGTABLE_INSTANCE_ID}}'
