@@ -7,6 +7,7 @@ info:
 host: "{{PROJECT_ID}}.appspot.com"
 schemes:
   - "https"
+
 paths:
   "/dummy":
     get:
@@ -28,6 +29,8 @@ paths:
   "/upload":
     post:
       summary: "ETL JSON file."
+      security:
+        - api_key: []
       operationId: "upload"
       consumes:
         - multipart/form-data
@@ -42,3 +45,9 @@ paths:
             type: string
         400:
           description: "Error during file upload."
+
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "apikey"
+    in: "query"
