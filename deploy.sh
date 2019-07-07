@@ -3,6 +3,8 @@
 # $1: google app engine project-id
 # $2: name of bucket for raw json data
 # $3: id of bigtable instance
+# $4: name of bigquery dataset
+# $5: name of bigquery table
 
 announcement () {
     echo ""
@@ -16,6 +18,8 @@ sed "
     s/{{PROJECT_ID}}/$1/g;
     s/{{BUCKET_NAME_FOR_RAW_DATA}}/$2/g;
     s/{{BIGTABLE_INSTANCE_ID}}/$3/g;
+    s/{{BIGQUERY_DATASET_NAME}}/$4/g;
+    s/{{BIGQUERY_TABLE_NAME}}/$5/g;
     " ./app/app_template.yaml > ./app/app.yaml
 
 announcement "set region to Frankfurt if (still) possible"
