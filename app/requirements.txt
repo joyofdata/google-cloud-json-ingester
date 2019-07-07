@@ -2,4 +2,5 @@ flask
 gunicorn
 google-cloud-storage
 google-cloud-bigtable
+google-cloud-bigquery
 numpy

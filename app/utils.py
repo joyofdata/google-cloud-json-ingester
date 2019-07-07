@@ -8,6 +8,29 @@ import struct
 
 from google.cloud import storage
 from google.cloud import bigtable
+from google.cloud import bigquery
+
+
+def store_data_in_bigquery(
+    data_dict,
+    bq_dataset_name,
+    bq_table_name
+):
+    client = bigquery.Client()
+    dataset_ref = client.dataset(bq_dataset_name)
+    table_ref = dataset_ref.table(bq_table_name)
+    table = client.get_table(table_ref)
+
+    rows = [
+        {
+            "dt": data_dict["ts"],
+            "mean": data_dict["mn"],
+            "std": data_dict["std"]
+        }
+    ]
+    client.insert_rows(table, rows)
+
+    return
 
 
 def store_data_in_bigtable(
