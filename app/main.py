@@ -34,12 +34,22 @@ def upload():
         data_dict = utils.transform_data(raw_data)
         data_json = json.dumps(data_dict)
 
-        bt_instance_id = os.environ.get("BIGTABLE_INSTANCE_ID")
-        utils.store_data_in_bigtable(
+        if False:
+            bt_instance_id = os.environ.get("BIGTABLE_INSTANCE_ID")
+            utils.store_data_in_bigtable(
+                data_dict=data_dict,
+                bt_instance_id=bt_instance_id,
+                bt_table_name="data",
+                bt_column_family_name_for_statistics="statistics"
+            )
+
+        bq_dataset_name = os.environ.get("BIGQUERY_DATASET_NAME")
+        bq_table_name = os.environ.get("BIGQUERY_TABLE_NAME")
+
+        utils.store_data_in_bigquery(
             data_dict=data_dict,
-            bt_instance_id=bt_instance_id,
-            bt_table_name="data",
-            bt_column_family_name_for_statistics="statistics"
+            bq_dataset_name=bq_dataset_name,
+            bq_table_name=bq_table_name
         )
 
     return data_json, 200
