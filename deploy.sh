@@ -13,14 +13,14 @@ announcement () {
 }
 
 announcement "set config values in YAML files"
-sed "s/{{PROJECT_ID}}/$1/g" ./openapi_template.yaml > ./openapi.yaml
+sed "s/{{PROJECT_ID}}/$1/g" ./app-engine/openapi_template.yaml > ./app-engine/openapi.yaml
 sed "
     s/{{PROJECT_ID}}/$1/g;
     s/{{BUCKET_NAME_FOR_RAW_DATA}}/$2/g;
     s/{{BIGTABLE_INSTANCE_ID}}/$3/g;
     s/{{BIGQUERY_DATASET_NAME}}/$4/g;
     s/{{BIGQUERY_TABLE_NAME}}/$5/g;
-    " ./app/app_template.yaml > ./app/app.yaml
+    " ./app-engine/app/app_template.yaml > ./app-engine/app/app.yaml
 
 announcement "set region to Frankfurt if (still) possible"
 gcloud app create --region="europe-west3"
@@ -33,7 +33,7 @@ gsutil mb gs://$2/
 # cbt createfamily data statistics -project $1 -instance $3
 
 announcement "deploy API"
-gcloud endpoints services deploy "./openapi.yaml"
+gcloud endpoints services deploy ./app-engine/openapi.yaml
 
 announcement "deploy app"
-gcloud -q app deploy "./app/app.yaml"
+gcloud -q app deploy ./app-engine/app/app.yaml
