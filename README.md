@@ -16,7 +16,6 @@ curl -X POST -F "file=@[file name]" https://[project-id].appspot.com/upload?key=
 
 ```
 {"time_stamp": "2019-05-02T06:00:00-04:00", "data": [1.2, 2.3, 3.4]}
-
 ```
 
 ## Infrastructure
