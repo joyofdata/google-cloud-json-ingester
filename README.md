@@ -3,7 +3,12 @@
 ## Deployment
 
 ```
-./deploy.sh [project-id] [name of bucket for raw json data] [Bigtable instance name] [BigQuery dataset name] [BigQuery table name]
+./deploy.sh \
+    [project ID] \
+    [name of bucket for raw JSON data] \
+    [Bigtable instance name] \
+    [BigQuery dataset name] \
+    [BigQuery table name]
 ```
 
 ## Requests
