@@ -1,1 +1,24 @@
-[cloud storage]
+project:
+  name: carbide-booth-245511
+
+cloud-storage:
+  raw-data-bucket:
+      name: raw-json-data-l3z0dbnsd39k
+      location: europe-west3
+
+bigquery:
+  datasets:
+    - id: dataset
+  tables:
+    - id: statistics
+      dataset-id: dataset
+      columns:
+        - name: dt
+          type: DATETIME
+          mode: REQUIRED
+        - name: mean
+          type: FLOAT64
+          mode: REQUIRED
+        - name: std
+          type: FLOAT64
+          mode: REQUIRED
