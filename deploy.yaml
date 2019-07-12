@@ -1,5 +1,13 @@
 project:
-  name: carbide-booth-245511
+  id: carbide-booth-245511
+  region: europe-west3
+  google-application-credentials: /home/raffael/google-cloud-json-ingester-2938b2451612.json
+  config-files:
+    app-yaml: ./app-engine/app/app.yaml
+    openapi-yaml: ./app-engine/openapi.yaml
+  config-templates:
+    app-yaml: ./app-engine/app/app_template.yaml
+    openapi-yaml: ./app-engine/openapi_template.yaml
 
 cloud-storage:
   raw-data-bucket:
@@ -22,3 +30,28 @@ bigquery:
         - name: std
           type: FLOAT64
           mode: REQUIRED
+
+pubsub:
+  topics:
+    - name: store-data-in-cloud-storage
+
+cloud-functions:
+  - name: store_data_in_cloud_storage
+    runtime: python37
+    trigger:
+      type: topic
+      topic-name: store-data-in-cloud-storage
+    region: europe-west1
+    source: ./cloud-functions/store_data_in_cloud_storage
+  - name: store_data_in_bigquery
+    runtime: python37
+    trigger:
+      type: bucket
+      event-type: google.storage.object.finalize
+      bucket-name: raw-json-data-l3z0dbnsd39k
+    region: europe-west1
+    source: ./cloud-functions/store_data_in_bigquery
+    env-vars:
+      BIGQUERY_DATASET_NAME: dataset
+      BIGQUERY_TABLE_NAME: statistics
+      BUCKET_NAME_FOR_RAW_DATA: raw-json-data-l3z0dbnsd39k
