@@ -3,6 +3,9 @@ app-engine/app/app.yaml
 
 data/
 
+*.log
+*.ipynb
+
 # PyCharm
 .idea
 .idea/*
