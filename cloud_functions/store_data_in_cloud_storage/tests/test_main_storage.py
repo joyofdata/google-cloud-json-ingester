@@ -22,7 +22,7 @@ os.environ.setdefault(
 def test_store_data_in_cloud_storage():
     rnd_string = ''.join(
         random.choice(
-            string.ascii_lowercase + string.ascii_uppercase + string.digits
+            string.ascii_lowercase + string.digits
         ) for _ in range(20)
     )
 
