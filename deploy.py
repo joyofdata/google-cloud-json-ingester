@@ -4,7 +4,7 @@ import os
 import deploy_utils as du
 
 
-config = yaml.load(open("deploy.yaml", "r"), Loader=yaml.FullLoader)
+config = yaml.safe_load(open("deploy.yaml", "r"))
 
 f_log = open("./deploy.log", "w+")
 
