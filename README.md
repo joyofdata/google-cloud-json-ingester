@@ -3,13 +3,20 @@
 ## Deployment
 
 ```
-./deploy.sh \
-    [project ID] \
-    [name of bucket for raw JSON data] \
-    [Bigtable instance name] \
-    [BigQuery dataset name] \
-    [BigQuery table name]
+python3 ./deploy.py
 ```
+
+That script will read the configuration from `deploy.yaml` and requires application credentials for interacting with
+the API. Following settings are individual and required to be set:
+
+- project::id
+- project::google-application-credentials
+
+Same bucket name for those three settings:
+
+- cloud-storage::raw-data-bucket::name
+- cloud-functions::trigger::bucket-name (for item with name=store_data_in_bigquery)
+- cloud-functions::env-vars::BUCKET_NAME_FOR_RAW_DATA (for item with name=store_data_in_bigquery)
 
 ## Requests
 
